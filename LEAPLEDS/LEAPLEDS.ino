@@ -25,35 +25,53 @@ void setup() {
   strip.show(); // Initialize all pixels to 'off'
   Serial.begin(115200);
 
+//  Serial.println("HELLO");
+
   test = "25.0,17.0,255/23.0,16.0,255/28.0,20.0,255/20.0,16.0,255/16.0,19.0,255/15.0,19.0,225/";
 
-  
+//  Serial.println("x: ");
   int oldstart = 0;
   int start = test.indexOf("/");
   int first_comma = test.indexOf(",");
   int xCoord = test.substring(oldstart, first_comma).toInt();
-  int second_comma = test.indexOf(",", first_comma);
-  int yCoord = test.substring(first_comma,second_comma).toInt();
-  int redAmount = test.substring(second_comma, start).toInt();
+  int second_comma = test.indexOf(",", first_comma+1);
+  Serial.println(first_comma);
+  Serial.println(second_comma);
+  int yCoord = test.substring(first_comma+1, second_comma).toInt();
 
+  int redAmount = test.substring(second_comma+1, start).toInt();
+
+  Serial.println("x: ");
+  Serial.println(xCoord);
+  Serial.println(yCoord);
+  Serial.println(redAmount);
   xCoords[0] = xCoord;
+  yCoords[0] = yCoord;
+  redVals[0] = redAmount;
 
+  
+
+//  Serial.println("x: ");
+//  Serial.println(xCoord);
+//  Serial.println(" ");
   int num_coords = 1;
 
-  while(start < test.length()-1){
-        start = test.indexOf("/", oldstart); 
-        first_comma = test.indexOf(",");
-        xCoord = test.substring(oldstart, first_comma).toInt();
-        second_comma = test.indexOf(",", first_comma);
-        yCoord = test.substring(first_comma,second_comma).toInt();
-        redAmount = test.substring(second_comma, start).toInt();
+//  while(start < test.length()-1){
+//        start = test.indexOf("/", oldstart); 
+//        first_comma = test.indexOf(",");
+//        xCoord = test.substring(oldstart, first_comma).toInt();
+//        second_comma = test.indexOf(",", first_comma);
+//        yCoord = test.substring(first_comma,second_comma).toInt();
+//        redAmount = test.substring(second_comma, start).toInt();
+//
+//        xCoords[num_coords] = xCoord;
+//        yCoords[num_coords] = yCoord;
+//        redVals[num_coords] = redAmount;
+//        num_coords+= 1;
+//        oldstart = start;
+//    }
 
-        xCoords[num_coords] = xCoord;
-        yCoords[num_coords] = yCoord;
-        redVals[num_coords] = redAmount;
-        num_coords+= 1;
-        oldstart = start;
-    }
+//    Serial.println("HELLO");
 }
 
 int XY_to_Pixel(int x, int y){
