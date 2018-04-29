@@ -1,5 +1,8 @@
 
 import de.voidplus.leapmotion.*;
+import java.util.*;
+
+HashSet<PVector> fingerTips, distalBones, interBones, proxBones, metaBones, handPos;
 
 // ======================================================
 // Table of Contents:
@@ -36,8 +39,15 @@ void draw_Leap() {
 
   int fps = leap.getFrameRate();
   
+  fingerTips = new HashSet<PVector>();
+  distalBones = new HashSet<PVector>();
+  interBones = new HashSet<PVector>();
+  proxBones = new HashSet<PVector>();
+  metaBones = new HashSet<PVector>();
+  handPos = new HashSet<PVector>();
+  
   for (Hand hand : leap.getHands ()) {
-
+   
 
     // ==================================================
     // 2. Hand
@@ -57,11 +67,14 @@ void draw_Leap() {
     float   handTime           = hand.getTimeVisible();
     PVector spherePosition     = hand.getSpherePosition();
     float   sphereRadius       = hand.getSphereRadius();
+    
+    handPos.add(handPosition);
 
     // --------------------------------------------------
     // Drawing
-    hand.draw();
+   // hand.draw();
 
+//    println("Z positions: ", handPosition);
 
     // ==================================================
     // 3. Arm
@@ -98,9 +111,6 @@ void draw_Leap() {
     // or                        hand.getFinger(4);
 
     
-    if(hand.getOutstretchedFingers().size() > 2){
-        myPort.write(1);
-    }
 
     for (Finger finger : hand.getFingers()) {
       // or              hand.getOutstretchedFingers();
@@ -118,7 +128,11 @@ void draw_Leap() {
 
       // Drawing:
       // finger.draw();  // Executes drawBones() and drawJoints()
-      // finger.drawBones();
+       //finger.drawBones();
+       //ellipse(fingerPosition.x, fingerPosition.y, 5, 5);
+       fingerTips.add(fingerPosition);
+
+       
       // finger.drawJoints();
 
       // ------------------------------------------------
@@ -143,6 +157,14 @@ void draw_Leap() {
       }
 
 
+
+/*
+
+      ditalBones.add(finger.getDistalBone().position);
+//      interBones.add();
+//      proxBones.add();
+//      metaBones.add();
+*/
       // ================================================
       // 5. Bones
       // --------
@@ -151,18 +173,31 @@ void draw_Leap() {
       Bone    boneDistal       = finger.getDistalBone();
       // or                      finger.get("distal");
       // or                      finger.getBone(0);
+      
+      distalBones.add(boneDistal.getNextJoint());
+      distalBones.add(boneDistal.getPrevJoint());
 
       Bone    boneIntermediate = finger.getIntermediateBone();
       // or                      finger.get("intermediate");
       // or                      finger.getBone(1);
+      
+      interBones.add(boneIntermediate.getNextJoint());
+      interBones.add(boneIntermediate.getPrevJoint());
 
       Bone    boneProximal     = finger.getProximalBone();
       // or                      finger.get("proximal");
       // or                      finger.getBone(2);
+      
+      proxBones.add(boneProximal.getNextJoint());
+      proxBones.add(boneProximal.getPrevJoint());
 
       Bone    boneMetacarpal   = finger.getMetacarpalBone();
       // or                      finger.get("metacarpal");
       // or                      finger.getBone(3);
+
+      metaBones.add(boneMetacarpal.getNextJoint());
+      metaBones.add(boneMetacarpal.getPrevJoint());
+
 
       // ------------------------------------------------
       // Touch emulation
