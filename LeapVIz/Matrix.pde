@@ -46,7 +46,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += "/" + rectLoc.x + "," + rectLoc.y + "," + amount_red;
+         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
       }
       
       amount_red -= 30;
@@ -59,7 +59,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += "/" + rectLoc.x + "," + rectLoc.y + "," + amount_red;
+         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
       }
       
       amount_red -= 30;
@@ -72,7 +72,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += "/" + rectLoc.x + "," + rectLoc.y + "," + amount_red;
+         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
       }
 
       amount_red -= 30;
@@ -85,7 +85,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += "/" + rectLoc.x + "," + rectLoc.y + "," + amount_red;
+         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
       }
 
       amount_red -= 30;
@@ -98,7 +98,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += "/" + rectLoc.x + "," + rectLoc.y + "," + amount_red;
+         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
       }
            
       amount_red -= 30;
@@ -111,7 +111,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += "/" + rectLoc.x + "," + rectLoc.y + "," + amount_red;
+         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
       }
                    
       
@@ -130,7 +130,7 @@ class Matrix{
     PVector XYtoRC(PVector loc){
         int x = floor(loc.x/cellWidth) - 1;
         int y = floor(loc.y/cellHeight) - 1;
-        return new PVector(x, y);
+        return new PVector(int(x), int(y));
     }
     
 }

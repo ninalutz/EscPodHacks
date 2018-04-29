@@ -4,19 +4,62 @@
 #endif
 
 #define PIN 2
-
 #define NUM_LED 96
+
+#define NUM_X 15
+#define NUM_Y 15
+
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LED, PIN, NEO_GRB + NEO_KHZ800);
 
 String test; 
+
+
+int xCoords[] = {};
+int yCoords[] = {};
+int redVals[] = {};
 
 void setup() {
   strip.begin();
   strip.setBrightness(64);
   strip.show(); // Initialize all pixels to 'off'
   Serial.begin(115200);
+
+  test = "25.0,17.0,255/23.0,16.0,255/28.0,20.0,255/20.0,16.0,255/16.0,19.0,255/15.0,19.0,225/";
+
+  
+  int oldstart = 0;
+  int start = test.indexOf("/");
+  int first_comma = test.indexOf(",");
+  int xCoord = test.substring(oldstart, first_comma).toInt();
+  int second_comma = test.indexOf(",", first_comma);
+  int yCoord = test.substring(first_comma,second_comma).toInt();
+  int redAmount = test.substring(second_comma, start).toInt();
+
+  xCoords[0] = xCoord;
+
+  int num_coords = 1;
+
+  while(start < test.length()-1){
+        start = test.indexOf("/", oldstart); 
+        first_comma = test.indexOf(",");
+        xCoord = test.substring(oldstart, first_comma).toInt();
+        second_comma = test.indexOf(",", first_comma);
+        yCoord = test.substring(first_comma,second_comma).toInt();
+        redAmount = test.substring(second_comma, start).toInt();
+
+        xCoords[num_coords] = xCoord;
+        yCoords[num_coords] = yCoord;
+        redVals[num_coords] = redAmount;
+        num_coords+= 1;
+        oldstart = start;
+    }
 }
+
+int XY_to_Pixel(int x, int y){
+    //changes the xy from the visualization to a pixel number
+  }
+
 
 void loop() {
     if(Serial.read() == 1){
