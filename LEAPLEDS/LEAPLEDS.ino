@@ -24,7 +24,8 @@ void setup() {
   strip.begin();
   strip.setBrightness(255);
   strip.show(); // Initialize all pixels to 'off's
-  
+
+  //test string
   test = "102,135/100,105/2,225/101,135/3,225/98,165/99,165/76,135/77,135/73,225/75,135/51,225/52,165/126,135/125,135/27,165/123,225/28,195/0,100"; 
 
 //  parse_red(test);
@@ -32,9 +33,11 @@ void setup() {
 }
 
 void loop() {
+
+  //Serial code not working :( 
 //    test = Serial.readString();
 //    if(test.length() > 0) parse_red(test);
-//    else do_dull();
+//    else do_no_motion();
 
   do_screensaver();
 
@@ -60,8 +63,6 @@ void parse_red(String t){
           cellNum = test.substring(start+1, comma).toInt();
           redAmount = test.substring(comma+1, cap).toInt();
           start = cap;
-          
-//          Serial.println(cellNum);
           redVals[cellNum] = redAmount;
       }
       
@@ -75,36 +76,29 @@ void parse_red(String t){
        
 }
 
-void do_dull(){
-    
+void do_no_motion(){
     for(int i =0; i<NUM_LED; i++){
           strip.setPixelColor(i, strip.Color(60, 0, 0)); 
           strip.show();
           delay(10);
     }
-
- 
-  }
+}
 
 
 void do_screensaver(){
-
     for(int i =0; i<NUM_LED; i++){
           strip.setPixelColor(i, strip.Color(60, 0, 0)); 
           strip.show();
           delay(10);
-    }
-
-    
+    } 
     for(int i =0; i<NUM_LED; i++){
           strip.setPixelColor(i, strip.Color(0, 0, 60)); 
           strip.show();
           delay(5);
     }
-
     for(int i =0; i<NUM_LED; i++){
           strip.setPixelColor(i, strip.Color(0, 60, 0)); 
           strip.show();
           delay(10);
     }
-  }
+}
