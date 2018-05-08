@@ -1,4 +1,3 @@
-String test;
 
 class Matrix{
     int r, c;
@@ -7,6 +6,9 @@ class Matrix{
     float x, y;
     Matrix(){}
     
+    String output;
+
+    HashMap<Integer, Integer> test;
     Matrix(int r, int c, float w, float h){
         this.r = r;
         this.c = c;
@@ -17,11 +19,11 @@ class Matrix{
         println(cellWidth, cellHeight, r, c);
         this.x = 20;
         this.y = 20;
+        this.test = new HashMap<Integer, Integer>();
     }
     
     void draw(){
-      test = "";
-      
+      test = new HashMap<Integer, Integer>();
       stroke(0);
       noFill();
       rect(x, y, w, h);
@@ -36,8 +38,9 @@ class Matrix{
       
       
      int amount_red = 255;
-     int opacity = 255;
+     int opacity = 100;
      
+     translate(0, cellWidth);
      //Finger Tips
      for(PVector p : fingerTips){
          PVector loc = XYtoMatrix(p); 
@@ -46,7 +49,8 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
+         test.put(RCtoCell(rectLoc), amount_red);
+     
       }
       
       amount_red -= 30;
@@ -59,7 +63,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
+         test.put(RCtoCell(rectLoc), amount_red);
       }
       
       amount_red -= 30;
@@ -72,7 +76,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
+         test.put(RCtoCell(rectLoc), amount_red);
       }
 
       amount_red -= 30;
@@ -85,7 +89,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
+         test.put(RCtoCell(rectLoc), amount_red);
       }
 
       amount_red -= 30;
@@ -98,7 +102,7 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
+         test.put(RCtoCell(rectLoc), amount_red);
       }
            
       amount_red -= 30;
@@ -111,12 +115,12 @@ class Matrix{
          rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
          fill(255, 0, 255);
          ellipse(loc.x, loc.y, 5, 5);
-         test += rectLoc.x + "," + rectLoc.y + "," + amount_red + "/";
+         test.put(RCtoCell(rectLoc), amount_red);
       }
-                   
+      
       
       //if(frameCount % 2 == 0){
-      myPort.write(1);
+      output = cleanTest(test);
       //}
       
     }
@@ -133,9 +137,26 @@ class Matrix{
         return new PVector(int(x), int(y));
     }
     
+    int RCtoCell(PVector RC){
+        float thing = RC.x + (r*RC.y);
+        return int(thing);
+    }
+    
+    String cleanTest(HashMap<Integer, Integer> t){
+      String out = "";
+     // println(t);
+     for(Integer i : t.keySet()){
+       out+= i + "," + t.get(i) + "/";
+     }
+      return out;
+      
+      }
+
+
 }
 
 
 void keyPressed(){
-  println(test);
+  //println(matrix.output);
+  myPort.write(matrix.output);
 }
