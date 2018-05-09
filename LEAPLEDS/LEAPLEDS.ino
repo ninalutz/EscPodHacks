@@ -9,14 +9,14 @@
 //actual are 20 y, 24 x 
 #define NUM_X 24
 #define NUM_Y 20
+String test = "102,135/100,105/2,225/101,135/3,225/98,165/99,165/76,135/77,135/73,225/75,135/51,225/52,165/126,135/125,135/27,165/123,225/28,195/0,100/"; 
 
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LED, PIN, NEO_GRB + NEO_KHZ800);
 
-String test;
-int redVals[] = {};
 boolean initialized = false;
 
+int start, cap, redAmount, cellNum, comma;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -24,57 +24,38 @@ void setup() {
   strip.begin();
   strip.setBrightness(255);
   strip.show(); // Initialize all pixels to 'off's
-
-  //test string
-  test = "102,135/100,105/2,225/101,135/3,225/98,165/99,165/76,135/77,135/73,225/75,135/51,225/52,165/126,135/125,135/27,165/123,225/28,195/0,100"; 
-
-//  parse_red(test);
-
 }
 
 void loop() {
-
-  //Serial code not working :( 
-//    test = Serial.readString();
-//    if(test.length() > 0) parse_red(test);
-//    else do_no_motion();
-
-  do_screensaver();
+  parse_red();
+  delay(10);
+  strip.show();
+  //do_screensaver();
 
 }
 
 //Red value parsing
-void parse_red(String t){
-  
-      int start = 0;
-      int cap = test.indexOf("/", start);
-      int comma = test.indexOf(",", start);
-      int cellNum = test.substring(start, comma).toInt();
-      int redAmount = test.substring(comma+1, cap).toInt();
-
+void parse_red(){
+      start = 0;
+      cap = test.indexOf("/", start);
+      comma = test.indexOf(",", start + 1);
+      cellNum = test.substring(start, comma).toInt();
+      redAmount = test.substring(comma+1, cap).toInt();
+      Serial.println(cellNum);
       start = cap;
-      
-      redVals[cellNum] = redAmount;
-
+      strip.setPixelColor(cellNum, strip.Color(redAmount, 0, 0));
 
       while (cap<test.length() - 1){
           cap = test.indexOf("/", start+1);
           comma = test.indexOf(",", start+1);
           cellNum = test.substring(start+1, comma).toInt();
           redAmount = test.substring(comma+1, cap).toInt();
+          Serial.println(cellNum);
           start = cap;
-          redVals[cellNum] = redAmount;
+         strip.setPixelColor(cellNum, strip.Color(redAmount, 0, 0));
       }
-      
-    for(int i =0; i<NUM_LED; i++){
-          strip.setPixelColor(i, strip.Color(redVals[i], 10, 0)); 
-    }
-  strip.show();
-
-  delay(2000);
-
-       
 }
+
 
 void do_no_motion(){
     for(int i =0; i<NUM_LED; i++){
@@ -83,7 +64,6 @@ void do_no_motion(){
           delay(10);
     }
 }
-
 
 void do_screensaver(){
     for(int i =0; i<NUM_LED; i++){
