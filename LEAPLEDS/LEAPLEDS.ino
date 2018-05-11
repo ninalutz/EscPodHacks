@@ -11,15 +11,12 @@
 #define NUM_Y 20
 String test = "102,135/100,105/2,225/101,135/3,225/98,165/99,165/76,135/77,135/73,225/75,135/51,225/52,165/126,135/125,135/27,165/123,225/28,195/0,100/"; 
 
-
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LED, PIN, NEO_GRB + NEO_KHZ800);
-
-boolean initialized = false;
 
 int start, cap, redAmount, cellNum, comma;
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+//  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   strip.begin();
   strip.setBrightness(255);
@@ -27,11 +24,11 @@ void setup() {
 }
 
 void loop() {
-  parse_red();
-  delay(10);
-  strip.show();
-  //do_screensaver();
-
+ // do_screensaver();
+ parse_red();
+ if(Serial.available()){
+    test = Serial.readString();
+  }
 }
 
 //Red value parsing
@@ -52,8 +49,9 @@ void parse_red(){
           redAmount = test.substring(comma+1, cap).toInt();
           Serial.println(cellNum);
           start = cap;
-         strip.setPixelColor(cellNum, strip.Color(redAmount, 0, 0));
+          strip.setPixelColor(cellNum, strip.Color(redAmount, 255 - redAmount, 0));
       }
+      strip.show();
 }
 
 
@@ -81,4 +79,31 @@ void do_screensaver(){
           strip.show();
           delay(10);
     }
+}
+
+void rainbowCycle(uint8_t wait) {
+  uint16_t i, j;
+
+  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+    for(i=0; i< strip.numPixels(); i++) {
+      strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+    }
+    strip.show();
+    delay(wait);
+  }
+}
+
+// Input a value 0 to 255 to get a color value.
+// The colours are a transition r - g - b - back to r.
+uint32_t Wheel(byte WheelPos) {
+  WheelPos = 255 - WheelPos;
+  if(WheelPos < 85) {
+    return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+  }
+  if(WheelPos < 170) {
+    WheelPos -= 85;
+    return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+  }
+  WheelPos -= 170;
+  return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 }

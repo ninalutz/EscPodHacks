@@ -152,11 +152,17 @@ class Matrix{
       
       }
 
-
+    String randomOutput(){
+      String out = "";
+      for(int i =0; i<40; i++){
+          out += int(random(400)) + "," + int(random(255)) + "/";
+      }
+      return out;
+    }
 }
 
 
 void keyPressed(){
-  //println(matrix.output);
+  println(matrix.output);
   myPort.write(matrix.output);
 }

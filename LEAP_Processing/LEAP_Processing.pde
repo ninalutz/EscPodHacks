@@ -22,6 +22,6 @@ void draw(){
   background(255);
   draw_Leap();
   matrix.draw();
-  myPort.write(matrix.output);
-
+  myPort.write(matrix.randomOutput());
+  
 }
