@@ -45,12 +45,11 @@ class Matrix{
      for(PVector p : fingerTips){
          PVector loc = XYtoMatrix(p); 
          PVector rectLoc = XYtoRC(loc);
-         fill(amount_red, 0, 0, opacity);
-         rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
-         fill(255, 0, 255);
-         ellipse(loc.x, loc.y, 5, 5);
-         test.put(RCtoCell(rectLoc), amount_red);
-     
+         //fill(amount_red, 0, 0, opacity);
+         //rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
+         //fill(255, 0, 255);
+         //ellipse(loc.x, loc.y, 5, 5);
+         test.put(RCtoCell(rectLoc), amount_red);  
       }
       
       amount_red -= 30;
@@ -59,10 +58,10 @@ class Matrix{
       for(PVector p : distalBones){
          PVector loc = XYtoMatrix(p); 
          PVector rectLoc = XYtoRC(loc);
-         fill(amount_red, 0, 0, opacity);
-         rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
-         fill(255, 0, 255);
-         ellipse(loc.x, loc.y, 5, 5);
+         //fill(amount_red, 0, 0, opacity);
+         //rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
+         //fill(255, 0, 255);
+         //ellipse(loc.x, loc.y, 5, 5);
          test.put(RCtoCell(rectLoc), amount_red);
       }
       
@@ -72,10 +71,10 @@ class Matrix{
       for(PVector p : interBones){
          PVector loc = XYtoMatrix(p); 
          PVector rectLoc = XYtoRC(loc);
-         fill(amount_red, 0, 0, opacity);
-         rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
-         fill(255, 0, 255);
-         ellipse(loc.x, loc.y, 5, 5);
+         //fill(amount_red, 0, 0, opacity);
+         //rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
+         //fill(255, 0, 255);
+         //ellipse(loc.x, loc.y, 5, 5);
          test.put(RCtoCell(rectLoc), amount_red);
       }
 
@@ -85,10 +84,10 @@ class Matrix{
       for(PVector p : proxBones){
          PVector loc = XYtoMatrix(p); 
          PVector rectLoc = XYtoRC(loc);
-         fill(amount_red, 0, 0, opacity);
-         rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
-         fill(255, 0, 255);
-         ellipse(loc.x, loc.y, 5, 5);
+         //fill(amount_red, 0, 0, opacity);
+         //rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
+         //fill(255, 0, 255);
+         //ellipse(loc.x, loc.y, 5, 5);
          test.put(RCtoCell(rectLoc), amount_red);
       }
 
@@ -98,10 +97,10 @@ class Matrix{
       for(PVector p : metaBones){
          PVector loc = XYtoMatrix(p); 
          PVector rectLoc = XYtoRC(loc);
-         fill(amount_red, 0, 0, opacity);
-         rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
-         fill(255, 0, 255);
-         ellipse(loc.x, loc.y, 5, 5);
+         //fill(amount_red, 0, 0, opacity);
+         //rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
+         //fill(255, 0, 255);
+         //ellipse(loc.x, loc.y, 5, 5);
          test.put(RCtoCell(rectLoc), amount_red);
       }
            
@@ -111,18 +110,26 @@ class Matrix{
       for(PVector p : handPos){
          PVector loc = XYtoMatrix(p); 
          PVector rectLoc = XYtoRC(loc);
-         fill(amount_red, 0, 0, opacity);
-         rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
-         fill(255, 0, 255);
-         ellipse(loc.x, loc.y, 5, 5);
+         //fill(amount_red, 0, 0, opacity);
+         //rect(this.x + rectLoc.x*cellWidth, this.y + rectLoc.y*cellHeight, cellWidth, cellHeight);
+         //fill(255, 0, 255);
+         //ellipse(loc.x, loc.y, 5, 5);
          test.put(RCtoCell(rectLoc), amount_red);
       }
       
       
       //if(frameCount % 2 == 0){
-      output = cleanTest(test);
       //}
       
+    }
+    
+    String returnOut(){
+      if(test.size() > 0){
+         return cleanTest(test);
+      }
+      else{
+        return "hello";
+      }
     }
     
     PVector XYtoMatrix(PVector loc){
@@ -143,12 +150,12 @@ class Matrix{
     }
     
     String cleanTest(HashMap<Integer, Integer> t){
-      String out = "<";
+      String out = "";
      // println(t);
      for(Integer i : t.keySet()){
        out+= i + "," + t.get(i) + "/";
      }
-     out+= ">";
+     //out+= ">";
       return out;
       
       }
@@ -158,12 +165,14 @@ class Matrix{
       for(int i =0; i<40; i++){
           out += int(random(400)) + "," + int(random(255)) + "/";
       }
+     // out+= ">";
       return out;
     }
 }
 
 
 void keyPressed(){
-  println(matrix.output);
-  myPort.write(matrix.output);
+ // println(matrix.output);
+  thing = matrix.randomOutput();
+  println(thing);
 }

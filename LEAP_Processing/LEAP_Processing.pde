@@ -8,20 +8,33 @@ void setup() {
   background(255);
   String portName = Serial.list()[5]; 
   println(Serial.list());
-  myPort = new Serial(this, portName, 115200);
+  myPort = new Serial(this, portName,115200);
   matrix = new Matrix(24, 20, 240, 200);
   leap = new LeapMotion(this);
 
   fingerTips = new HashSet<PVector>();
   
-  frameRate(50);
+ // frameRate(50);
 }
 
+String thing = "hello";
 
 void draw(){
   background(255);
-  draw_Leap();
+  thread("draw_Leap");
   matrix.draw();
-  myPort.write(matrix.randomOutput());
+  //println(matrix.returnOut());
+  
+//  if(frameCount %2 == 0){
+    delay(500);
+    myPort.write(matrix.returnOut());
+    println(matrix.returnOut());
+    delay(500);
+ // }
+  //delay(500);
+  //myPort.write(matrix.returnOut());
+  //println(matrix.returnOut());
+  //delay(100);
+  
   
 }

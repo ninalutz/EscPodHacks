@@ -37,7 +37,7 @@ void leapOnExit() {
 
 void draw_Leap() {
 
-  int fps = leap.getFrameRate();
+  //int fps = leap.getFrameRate();
   
   fingerTips = new HashSet<PVector>();
   distalBones = new HashSet<PVector>();
@@ -52,21 +52,21 @@ void draw_Leap() {
     // ==================================================
     // 2. Hand
 
-    int     handId             = hand.getId();
+    //int     handId             = hand.getId();
     PVector handPosition       = hand.getPosition();
-    PVector handStabilized     = hand.getStabilizedPosition();
-    PVector handDirection      = hand.getDirection();
-    PVector handDynamics       = hand.getDynamics();
-    float   handRoll           = hand.getRoll();
-    float   handPitch          = hand.getPitch();
-    float   handYaw            = hand.getYaw();
-    boolean handIsLeft         = hand.isLeft();
-    boolean handIsRight        = hand.isRight();
-    float   handGrab           = hand.getGrabStrength();
-    float   handPinch          = hand.getPinchStrength();
-    float   handTime           = hand.getTimeVisible();
-    PVector spherePosition     = hand.getSpherePosition();
-    float   sphereRadius       = hand.getSphereRadius();
+    //PVector handStabilized     = hand.getStabilizedPosition();
+    //PVector handDirection      = hand.getDirection();
+    //PVector handDynamics       = hand.getDynamics();
+    //float   handRoll           = hand.getRoll();
+    //float   handPitch          = hand.getPitch();
+    //float   handYaw            = hand.getYaw();
+    //boolean handIsLeft         = hand.isLeft();
+    //boolean handIsRight        = hand.isRight();
+    //float   handGrab           = hand.getGrabStrength();
+    //float   handPinch          = hand.getPinchStrength();
+    //float   handTime           = hand.getTimeVisible();
+    //PVector spherePosition     = hand.getSpherePosition();
+    //float   sphereRadius       = hand.getSphereRadius();
     
     handPos.add(handPosition);
 
@@ -79,36 +79,36 @@ void draw_Leap() {
     // ==================================================
     // 3. Arm
 
-    if (hand.hasArm()) {
-      Arm     arm              = hand.getArm();
-      float   armWidth         = arm.getWidth();
-      PVector armWristPos      = arm.getWristPosition();
-      PVector armElbowPos      = arm.getElbowPosition();
-    }
+//    if (hand.hasArm()) {
+//      Arm     arm              = hand.getArm();
+//      float   armWidth         = arm.getWidth();
+//      PVector armWristPos      = arm.getWristPosition();
+//      PVector armElbowPos      = arm.getElbowPosition();
+//    }
     
 
-    // ==================================================
-    // 4. Finger
+//    // ==================================================
+//    // 4. Finger
 
-    Finger  fingerThumb        = hand.getThumb();
-    // or                        hand.getFinger("thumb");
-    // or                        hand.getFinger(0);
+//    Finger  fingerThumb        = hand.getThumb();
+//    // or                        hand.getFinger("thumb");
+//    // or                        hand.getFinger(0);
 
-    Finger  fingerIndex        = hand.getIndexFinger();
-    // or                        hand.getFinger("index");
-    // or                        hand.getFinger(1);
+//    Finger  fingerIndex        = hand.getIndexFinger();
+//    // or                        hand.getFinger("index");
+//    // or                        hand.getFinger(1);
 
-    Finger  fingerMiddle       = hand.getMiddleFinger();
-    // or                        hand.getFinger("middle");
-    // or                        hand.getFinger(2);
+//    Finger  fingerMiddle       = hand.getMiddleFinger();
+//    // or                        hand.getFinger("middle");
+//    // or                        hand.getFinger(2);
 
-    Finger  fingerRing         = hand.getRingFinger();
-    // or                        hand.getFinger("ring");
-    // or                        hand.getFinger(3);
+//    Finger  fingerRing         = hand.getRingFinger();
+//    // or                        hand.getFinger("ring");
+//    // or                        hand.getFinger(3);
 
-    Finger  fingerPink         = hand.getPinkyFinger();
-    // or                        hand.getFinger("pinky");
-    // or                        hand.getFinger(4);
+//    Finger  fingerPink         = hand.getPinkyFinger();
+//    // or                        hand.getFinger("pinky");
+//    // or                        hand.getFinger(4);
 
     
 
@@ -116,12 +116,12 @@ void draw_Leap() {
       // or              hand.getOutstretchedFingers();
       // or              hand.getOutstretchedFingersByAngle();
 
-      int     fingerId         = finger.getId();
+      //int     fingerId         = finger.getId();
       PVector fingerPosition   = finger.getPosition();
-      PVector fingerStabilized = finger.getStabilizedPosition();
-      PVector fingerVelocity   = finger.getVelocity();
-      PVector fingerDirection  = finger.getDirection();
-      float   fingerTime       = finger.getTimeVisible();
+      //PVector fingerStabilized = finger.getStabilizedPosition();
+      //PVector fingerVelocity   = finger.getVelocity();
+      //PVector fingerDirection  = finger.getDirection();
+      //float   fingerTime       = finger.getTimeVisible();
 
       // ------------------------------------------------
       // Drawing
@@ -202,63 +202,63 @@ void draw_Leap() {
       // ------------------------------------------------
       // Touch emulation
 
-      int     touchZone        = finger.getTouchZone();
-      float   touchDistance    = finger.getTouchDistance();
+      //int     touchZone        = finger.getTouchZone();
+      //float   touchDistance    = finger.getTouchDistance();
 
-      switch(touchZone) {
-      case -1: // None
-        break;
-      case 0: // Hovering
-        // println("Hovering (#" + fingerId + "): " + touchDistance);
-        break;
-      case 1: // Touching
-        // println("Touching (#" + fingerId + ")");
-        break;
-      }
+      //switch(touchZone) {
+      //case -1: // None
+      //  break;
+      //case 0: // Hovering
+      //  // println("Hovering (#" + fingerId + "): " + touchDistance);
+      //  break;
+      //case 1: // Touching
+      //  // println("Touching (#" + fingerId + ")");
+      //  break;
+      //}
     }
 
 
     // ==================================================
     // 6. Tools
 
-    for (Tool tool : hand.getTools()) {
-      int     toolId           = tool.getId();
-      PVector toolPosition     = tool.getPosition();
-      PVector toolStabilized   = tool.getStabilizedPosition();
-      PVector toolVelocity     = tool.getVelocity();
-      PVector toolDirection    = tool.getDirection();
-      float   toolTime         = tool.getTimeVisible();
+    //for (Tool tool : hand.getTools()) {
+    //  int     toolId           = tool.getId();
+    //  PVector toolPosition     = tool.getPosition();
+    //  PVector toolStabilized   = tool.getStabilizedPosition();
+    //  PVector toolVelocity     = tool.getVelocity();
+    //  PVector toolDirection    = tool.getDirection();
+    //  float   toolTime         = tool.getTimeVisible();
 
-      // ------------------------------------------------
-      // Drawing:
-      // tool.draw();
+    //  // ------------------------------------------------
+    //  // Drawing:
+    //  // tool.draw();
 
-      // ------------------------------------------------
-      // Touch emulation
+    //  // ------------------------------------------------
+    //  // Touch emulation
 
-      int     touchZone        = tool.getTouchZone();
-      float   touchDistance    = tool.getTouchDistance();
+    //  int     touchZone        = tool.getTouchZone();
+    //  float   touchDistance    = tool.getTouchDistance();
 
-      switch(touchZone) {
-      case -1: // None
-        break;
-      case 0: // Hovering
-        // println("Hovering (#" + toolId + "): " + touchDistance);
-        break;
-      case 1: // Touching
-        // println("Touching (#" + toolId + ")");
-        break;
-      }
-    }
+    //  switch(touchZone) {
+    //  case -1: // None
+    //    break;
+    //  case 0: // Hovering
+    //    // println("Hovering (#" + toolId + "): " + touchDistance);
+    //    break;
+    //  case 1: // Touching
+    //    // println("Touching (#" + toolId + ")");
+    //    break;
+    //  }
+    //}
   }
 
 
   // ====================================================
   // 7. Devices
 
-  for (Device device : leap.getDevices()) {
-    float deviceHorizontalViewAngle = device.getHorizontalViewAngle();
-    float deviceVericalViewAngle = device.getVerticalViewAngle();
-    float deviceRange = device.getRange();
-  }
+  //for (Device device : leap.getDevices()) {
+  //  float deviceHorizontalViewAngle = device.getHorizontalViewAngle();
+  //  float deviceVericalViewAngle = device.getVerticalViewAngle();
+  //  float deviceRange = device.getRange();
+  //}
 }
