@@ -143,11 +143,12 @@ class Matrix{
     }
     
     String cleanTest(HashMap<Integer, Integer> t){
-      String out = "";
+      String out = "<";
      // println(t);
      for(Integer i : t.keySet()){
        out+= i + "," + t.get(i) + "/";
      }
+     out+= ">";
       return out;
       
       }

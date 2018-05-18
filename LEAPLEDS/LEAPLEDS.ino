@@ -9,7 +9,8 @@
 //actual are 20 y, 24 x 
 #define NUM_X 24
 #define NUM_Y 20
-String test = "102,135/100,105/2,225/101,135/3,225/98,165/99,165/76,135/77,135/73,225/75,135/51,225/52,165/126,135/125,135/27,165/123,225/28,195/0,100/"; 
+String test = "<102,135/100,105/2,225/101,135/3,225/98,165/99,165/76,135/77,135/73,225/75,135/51,225/52,165/126,135/125,135/27,165/123,225/28,195/0,100/>"; 
+String pretest =  "";
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LED, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -27,13 +28,21 @@ void loop() {
  // do_screensaver();
  parse_red();
  if(Serial.available()){
-    test = Serial.readString();
+    pretest = Serial.readString();
+    if(pretest[0] == "<" && pretest[pretest.length()-1] == ">"){
+        test = pretest;
+        parse_red();
+      }
+    else{
+        test = "";
+        do_screensaver();
+      }
   }
 }
 
 //Red value parsing
 void parse_red(){
-      start = 0;
+      start = 1;
       cap = test.indexOf("/", start);
       comma = test.indexOf(",", start + 1);
       cellNum = test.substring(start, comma).toInt();
@@ -42,7 +51,8 @@ void parse_red(){
       start = cap;
       strip.setPixelColor(cellNum, strip.Color(redAmount, 0, 0));
 
-      while (cap<test.length() - 1){
+//      while (cap<test.length() - 1){
+      while(test[cap+1] != ">"){
           cap = test.indexOf("/", start+1);
           comma = test.indexOf(",", start+1);
           cellNum = test.substring(start+1, comma).toInt();
